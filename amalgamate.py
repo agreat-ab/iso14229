@@ -86,11 +86,14 @@ with open(args.out_h, "w", encoding="utf-8") as f:
         "src/server.h",
     ]:
         f.write("\n")
-        src_path = next((s for s in args.srcs if src in s))
-        with open(src_path, "r", encoding="utf-8") as src_file:
-            stripped = strip_includes(src_file.read())
-            f.write(stripped)
-            f.write("\n")
+        #src_path = next((s for s in args.srcs if src in s))
+
+        for asrc in args.srcs:
+            if src in asrc:
+                with open(asrc, "r", encoding="utf-8") as src_file:
+                    stripped = strip_includes(src_file.read())
+                    f.write(stripped)
+                    f.write("\n")
 
     f.write(isotp_c_wrapped_h)
 
